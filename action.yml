@@ -1,0 +1,26 @@
+name: 'Sign Commit'
+description: 'Uses crazy-max/ghaction-import-gpg@v5 to sign commits and tags.'
+
+branding:
+  icon: 'award'
+  color: 'green'
+
+inputs:
+  gpg_private_key:
+    description: 'GPG Private Key.'
+    type: string
+    required: true
+  passphrase:
+    description: 'Passphrase.'
+    type: string
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: crazy-max/ghaction-import-gpg@v5
+      with:
+        gpg_private_key: ${{ inputs.gpg_private_key }}
+        passphrase: ${{ inputs.passphrase }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
